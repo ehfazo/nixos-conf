@@ -159,6 +159,8 @@
     jq
     gum
     git
+    # Hyprland
+    hyprpaper
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
