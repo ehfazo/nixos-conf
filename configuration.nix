@@ -48,12 +48,13 @@
    enable = true;
    settings = {
      default_session = {
-       command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+       command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd '${pkgs.uwsm}/bin/uwsm start -- sway'";
        user = "greeter";
      };
    };
  };
  
+services.greetd.vt = 1;
 
   programs.hyprland = {
     enable = true;
@@ -170,7 +171,7 @@
     hyprpaper
     fuzzel
     greetd
-    greetd.tuigreet
+    tuigreet
     sway
   ];
 
