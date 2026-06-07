@@ -170,7 +170,8 @@
     hyprpaper
     fuzzel
     greetd
-    tuigreet
+    greetd.tuigreet
+    sway
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
