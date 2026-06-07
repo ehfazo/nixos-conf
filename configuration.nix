@@ -43,10 +43,16 @@
 
   time.timeZone = "Asia/Dhaka";
  
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
+
+ services.greetd = {
+   enable = true;
+   settings = {
+     default_session = {
+       command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+       user = "greeter";
+     };
   };
+ 
 
   programs.hyprland = {
     enable = true;
@@ -162,6 +168,8 @@
     # Hyprland
     hyprpaper
     fuzzel
+    greetd
+    tuigreet
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
