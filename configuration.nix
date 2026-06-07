@@ -51,7 +51,8 @@
        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
        user = "greeter";
      };
-  };
+   };
+ };
  
 
   programs.hyprland = {
