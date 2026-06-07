@@ -45,15 +45,19 @@
  
 
  services.greetd = {
-   enable = true;
-   settings = {
-     default_session = {
-       command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd '${pkgs.uwsm}/bin/uwsm start -- sway'";
-       user = "greeter";
-     };
-   };
- };
- 
+  enable = true;
+  settings = {
+    default_session = {
+      command = let
+        startSway = pkgs.writeShellScript "start-sway" ''
+          exec ${pkgs.uwsm}/bin/uwsm start -- sway
+        '';
+      in "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd ${startSway}";
+      user = "greeter";
+    };
+  };
+};
+
   programs.hyprland = {
     enable = true;
     withUWSM = true;
