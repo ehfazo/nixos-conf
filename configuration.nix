@@ -54,8 +54,6 @@
    };
  };
  
-services.greetd.vt = 1;
-
   programs.hyprland = {
     enable = true;
     withUWSM = true;
