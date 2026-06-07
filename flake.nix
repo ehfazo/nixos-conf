@@ -20,6 +20,10 @@
       submodules = true;
       url = "https://github.com/ndfined-crp/ayugram-desktop/";
      };
+    rose-pine-hyprcursor = {
+      url = "github:ndom91/rose-pine-hyprcursor";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ayugram-desktop, ... }@inputs: {

@@ -118,6 +118,7 @@
     kitty
     inputs.ayugram-desktop.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.sherlock.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.rose-pine-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
     helium
     neovim
     cloudflare-warp
