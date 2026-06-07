@@ -161,7 +161,7 @@
     git
     # Hyprland
     hyprpaper
-    fuzzle
+    fuzzel
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
