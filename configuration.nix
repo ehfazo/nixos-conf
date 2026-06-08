@@ -32,6 +32,8 @@
     jack.enable = true;
   };
 
+  # tuigreet
+
 
   # Cloudflare
   services.cloudflare-warp.enable = true;
@@ -109,6 +111,21 @@
 
   nixpkgs.overlays = [
     inputs.helium.overlays.default
+    (final: prev: {
+      tuigreet = prev.tuigreet.overrideAttrs (oldAttrs: {
+        src = prev.fetchFromGitHub {
+          owner = "NotAShelf";
+          repo = "tuigreet";
+          tag = "v0.10.2";
+          hash = ""; 
+        };
+
+        cargoDeps = oldAttrs.cargoDeps.overrideAttrs (prev.lib.const {
+          outputHash = "";
+        });
+      });
+    })
+  ];
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
