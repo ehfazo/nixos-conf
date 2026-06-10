@@ -3,10 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    sherlock = {
-      url= "github:Skxxtz/sherlock";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    rux.url = "github:rux-lang/Rux"
     helium = {
       url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,10 +21,11 @@
       url = "github:ndom91/rose-pine-hyprcursor";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    tuigreet-fork.url = "github:NotAShelf/tuigreet";
   };
 
-  outputs = { self, nixpkgs, home-manager, ayugram-desktop, ... }@inputs: {
-    nixosConfigurations.hypr = nixpkgs.lib.nixosSystem {
+  outputs = { self, nixpkgs, rux , home-manager, ayugram-desktop, tuigreet-fork, ... }@inputs: {
+    nixosConfigurations.kaizu = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs;};
       modules = [

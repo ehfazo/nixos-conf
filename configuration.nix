@@ -1,6 +1,9 @@
+{ config, pkgs, inputs, lib, ... }:
 
-{ config, lib, pkgs, inputs, ... }:
+let
+  sddm-gruvbox-theme = pkgs.callPackage ./plugins/sddm-gruvbox.nix {};
 
+in
 {
   imports =
     [ 
@@ -13,6 +16,13 @@
   # Bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+
+  #UWSM
+  programs.uwsm.enable = true;
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "ventoy-1.1.12"
+  ];
 
   # Neovim
   systemd.services."dynamic-provider" = {
@@ -32,9 +42,6 @@
     jack.enable = true;
   };
 
-  # tuigreet
-
-
   # Cloudflare
   services.cloudflare-warp.enable = true;
   # services.getty.autologinUser = "sorex";
@@ -44,21 +51,12 @@
   networking.networkmanager.enable = true;
 
   time.timeZone = "Asia/Dhaka";
- 
 
- services.greetd = {
-  enable = true;
-  settings = {
-    default_session = {
-      command = let
-        startSway = pkgs.writeShellScript "start-sway" ''
-          exec ${pkgs.uwsm}/bin/uwsm start -- sway
-        '';
-      in "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd ${startSway}";
-      user = "greeter";
-    };
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+    theme = "sddm-gruvbox";
   };
-};
 
   programs.hyprland = {
     enable = true;
@@ -94,7 +92,6 @@
   };
 
 
-  # Da Vinci Resolv
    hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -111,20 +108,6 @@
 
   nixpkgs.overlays = [
     inputs.helium.overlays.default
-    (final: prev: {
-      tuigreet = prev.tuigreet.overrideAttrs (oldAttrs: {
-        src = prev.fetchFromGitHub {
-          owner = "NotAShelf";
-          repo = "tuigreet";
-          tag = "v0.10.2";
-          hash = ""; 
-        };
-
-        cargoDeps = oldAttrs.cargoDeps.overrideAttrs (prev.lib.const {
-          outputHash = "";
-        });
-      });
-    })
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
@@ -132,10 +115,15 @@
    "zoom"
    "spotify"
    "davinci-resolve"
+   "ventoy"
   ];
 
   programs.firefox.enable = true;
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
+    sddm-gruvbox-theme
+    inputs.rux.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+  ] ++ (with pkgs; [
     bash
     vim
     wget
@@ -152,6 +140,7 @@
     bluez-tools
     gnutar
     btop
+    ventoy
     go
     bluetuith
     zoom-us
@@ -188,10 +177,13 @@
     # Hyprland
     hyprpaper
     fuzzel
+    wine
+    wiremix
+    nautilus
     greetd
     tuigreet
     sway
-  ];
+  ]);
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
