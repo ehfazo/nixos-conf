@@ -15,7 +15,7 @@ in
   # NixCache Proxy
   services.nixcache-proxy = {
     enable = true;
-    publicKey = "my-cache-1:3S5BDRpoA7ObRQg9pPoNoAxTqqn5zjPcXjlUrhY1nVo="
+    publicKey = "my-cache-1:3S5BDRpoA7ObRQg9pPoNoAxTqqn5zjPcXjlUrhY1nVo=";
   };
 
   # Bluetooth
