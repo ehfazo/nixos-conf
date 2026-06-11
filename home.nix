@@ -1,26 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  dmscripts = pkgs.stdenv.mkDerivation {
-    pname = "dmscripts";
-    version = "git";
 
-    src = pkgs.fetchFromGitLab {
-      owner = "dwt1";
-      repo = "dmscripts";
-      rev = "master";
-      sha256 = "sha256-EF5QI/dydeT5xecgO+vsksvPU76tepNiYGxA6loTS+w="; 
-    };
-
-    nativeBuildInputs = [ pkgs.pandoc ];
-
-    installPhase = ''
-      mkdir -p $out/bin
-      cp -r scripts/* $out/bin/
-      chmod +x $out/bin/*
-    '';
-
-};
     na_scr = pkgs.writeShellApplication {
               name = "ns";
               runtimeInputs = with pkgs; [
@@ -37,17 +18,9 @@ in
   home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
-    dmscripts
-    dmenu    
-    xdotool
-    xclip
     na_scr
   ];
 
-  xdg.configFile."dmscripts/config".text = ''
-    DMTERM="foot"
-    DMBROWSER="firefox"
-  '';
 
   programs.nix-search-tv.enableTelevisionIntegration = true;
   programs.bash = {

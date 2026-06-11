@@ -1,7 +1,6 @@
 { config, pkgs, inputs, lib, ... }:
 
 let
-  sddm-gruvbox-theme = pkgs.callPackage ./plugins/sddm-gruvbox.nix {};
 
 in
 {
@@ -55,7 +54,6 @@ in
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
-    theme = "sddm-gruvbox";
   };
 
   programs.hyprland = {
@@ -141,7 +139,6 @@ in
     btop
     ventoy
     go
-    bluetuith
     zoom-us
     nerd-fonts.iosevka
     lua51Packages.tree-sitter-cli
