@@ -12,6 +12,12 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # NixCache Proxy
+  services.nixcache-proxy = {
+    enable = true;
+    publicKey = "my-cache-1:3S5BDRpoA7ObRQg9pPoNoAxTqqn5zjPcXjlUrhY1nVo="
+  };
+
   # Bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -118,7 +124,6 @@ in
 
   programs.firefox.enable = true;
   environment.systemPackages = [
-    sddm-gruvbox-theme
     inputs.rux.packages.${pkgs.stdenv.hostPlatform.system}.default
 
   ] ++ (with pkgs; [
